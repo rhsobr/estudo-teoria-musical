@@ -1,0 +1,14 @@
+{
+  "name": "harmonics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "ts-node ./index.ts"
+  },
+  "devDependencies": {
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
+  }
+}
