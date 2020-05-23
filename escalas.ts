@@ -8,7 +8,7 @@ import {
 
 class Escala {
   definicao: Array<NOTA_INTERVALO>;
-  todas_notas: Array<NOTA>;
+  private todas_notas: Array<NOTA>;
 
   constructor(definicao: Array<NOTA_INTERVALO>) {
     if (!definicao.length) {
@@ -21,8 +21,6 @@ class Escala {
 
   private pegaNovaPosicao(posicao_atual: any, intervalo: NOTA_INTERVALO) {
     let nova_posicao = posicao_atual;
-
-    //const aumenta = parseInt(intervalo, 10);
 
     for (var i = 0; i < intervalo; i++) {
       nova_posicao++;
