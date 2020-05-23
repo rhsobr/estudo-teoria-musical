@@ -3,34 +3,34 @@ import {
   NOTA_INTERVALO,
   MODIFICADOR_NOTA_SIMPLES,
   NOTA,
-  PEGA_TODAS_NOTAS,
-} from "./notas";
+  PEGA_TODAS_NOTAS
+} from './notas'
 
 class Escala {
-  definicao: Array<NOTA_INTERVALO>;
-  private todas_notas: Array<NOTA>;
+  definicao: Array<NOTA_INTERVALO>
+  private todas_notas: Array<NOTA>
 
   constructor(definicao: Array<NOTA_INTERVALO>) {
     if (!definicao.length) {
-      throw new Error("Definição precisa ter intervalos");
+      throw new Error('Definição precisa ter intervalos')
     }
 
-    this.definicao = definicao;
-    this.todas_notas = PEGA_TODAS_NOTAS();
+    this.definicao = definicao
+    this.todas_notas = PEGA_TODAS_NOTAS()
   }
 
   private pegaNovaPosicao(posicao_atual: any, intervalo: NOTA_INTERVALO) {
-    let nova_posicao = posicao_atual;
+    let nova_posicao = posicao_atual
 
     for (var i = 0; i < intervalo; i++) {
-      nova_posicao++;
+      nova_posicao++
 
       if (this.todas_notas.length == nova_posicao) {
-        nova_posicao = 0;
+        nova_posicao = 0
       }
     }
 
-    return nova_posicao;
+    return nova_posicao
   }
 
   private defineEscala = (definicao: Array<NOTA_INTERVALO>) => (
@@ -38,35 +38,35 @@ class Escala {
     modificador?: MODIFICADOR_NOTA_SIMPLES
   ): NOTA[] => {
     const posicao_tonica = this.todas_notas.findIndex(
-      (metadado) =>
+      metadado =>
         metadado.nota === nota &&
         (!modificador || metadado.modificadores.includes(modificador))
-    );
+    )
 
-    let posicao = posicao_tonica;
+    let posicao = posicao_tonica
 
-    const tonica = this.todas_notas[posicao_tonica];
+    const tonica = this.todas_notas[posicao_tonica]
 
     const todas_notas = definicao.reduce(
       (acc, intervalo) => {
-        posicao = this.pegaNovaPosicao(posicao, intervalo);
-        acc.push(this.todas_notas[posicao]);
-        return acc;
+        posicao = this.pegaNovaPosicao(posicao, intervalo)
+        acc.push(this.todas_notas[posicao])
+        return acc
       },
       [tonica]
-    );
+    )
 
     //remove última nota
-    todas_notas.pop();
+    todas_notas.pop()
 
-    return todas_notas;
-  };
+    return todas_notas
+  }
 
   com_tonica(tonica: NOTA): NOTA[] {
     return this.defineEscala(this.definicao)(
       tonica.nota,
       tonica.modificadores[0]
-    );
+    )
   }
 }
 
@@ -79,8 +79,8 @@ export default {
       NOTA_INTERVALO.TOM,
       NOTA_INTERVALO.TOM,
       NOTA_INTERVALO.TOM,
-      NOTA_INTERVALO.SEMITOM,
-    ]),
+      NOTA_INTERVALO.SEMITOM
+    ])
   },
   menor: {
     natural: new Escala([
@@ -90,7 +90,7 @@ export default {
       NOTA_INTERVALO.TOM,
       NOTA_INTERVALO.SEMITOM,
       NOTA_INTERVALO.TOM,
-      NOTA_INTERVALO.TOM,
+      NOTA_INTERVALO.TOM
     ]),
     harmonica: new Escala([
       NOTA_INTERVALO.TOM,
@@ -99,7 +99,7 @@ export default {
       NOTA_INTERVALO.TOM,
       NOTA_INTERVALO.SEMITOM,
       NOTA_INTERVALO.TOM + NOTA_INTERVALO.SEMITOM,
-      NOTA_INTERVALO.SEMITOM,
+      NOTA_INTERVALO.SEMITOM
     ]),
     melodica: new Escala([
       NOTA_INTERVALO.TOM,
@@ -108,8 +108,8 @@ export default {
       NOTA_INTERVALO.TOM,
       NOTA_INTERVALO.TOM,
       NOTA_INTERVALO.TOM,
-      NOTA_INTERVALO.SEMITOM,
-    ]),
+      NOTA_INTERVALO.SEMITOM
+    ])
   },
   pentatonica: {
     maior: new Escala([
@@ -117,14 +117,14 @@ export default {
       NOTA_INTERVALO.TOM,
       NOTA_INTERVALO.TOM + NOTA_INTERVALO.SEMITOM,
       NOTA_INTERVALO.TOM,
-      NOTA_INTERVALO.TOM + NOTA_INTERVALO.SEMITOM,
+      NOTA_INTERVALO.TOM + NOTA_INTERVALO.SEMITOM
     ]),
     menor: new Escala([
       NOTA_INTERVALO.TOM + NOTA_INTERVALO.SEMITOM,
       NOTA_INTERVALO.TOM,
       NOTA_INTERVALO.TOM,
       NOTA_INTERVALO.TOM + NOTA_INTERVALO.SEMITOM,
-      NOTA_INTERVALO.TOM,
-    ]),
-  },
-};
+      NOTA_INTERVALO.TOM
+    ])
+  }
+}
